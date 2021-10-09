@@ -1,0 +1,15 @@
+{
+  "name": "battleship",
+  "version": "1.0.0",
+  "description": "Multiplayer Battleship Game",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "http": "^0.0.1-security",
+    "path": "^0.12.7",
+    "socket.io": "^4.2.0"
+  }
+}
