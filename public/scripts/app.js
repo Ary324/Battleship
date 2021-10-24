@@ -18,17 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let isGameOver = false
   let currentPlayer = 'user'
   const width = 10
-  //Create Board
-  function createBoard(grid, squares) {
-    for (let i = 0; i < width * width; i++) {
-      const square = document.createElement('div')
-      square.dataset.id = i
-      grid.appendChild(square)
-      squares.push(square)
-    }
-  }
-  createBoard(userGrid, userSquares)
-  createBoard(computerGrid, computerSquares)
+  
   //Ships
   const shipArray = [
     {
@@ -67,6 +57,23 @@ document.addEventListener('DOMContentLoaded', () => {
       ]
     },
   ]
+
+
+
+
+  //Create Board
+  function createBoard(grid, squares) {
+    for (let i = 0; i < width * width; i++) {
+      const square = document.createElement('div')
+      square.dataset.id = i
+      grid.appendChild(square)
+      squares.push(square)
+    }
+  }
+  createBoard(userGrid, userSquares)
+  createBoard(computerGrid, computerSquares)
+  
+
   //Draw the computers ships in random locations
   function generate(ship) {
     let randomDirection = Math.floor(Math.random() * ship.directions.length)
@@ -80,11 +87,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!isTaken && !isAtRightEdge && !isAtLeftEdge) current.forEach(index => computerSquares[randomStart + index].classList.add('taken', ship.name))
     else generate(ship)
   }
+
   generate(shipArray[0])
   generate(shipArray[1])
   generate(shipArray[2])
   generate(shipArray[3])
   generate(shipArray[4])
+
+
   //Rotate the ships
   function rotate() {
     if (isHorizontal) {
@@ -109,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   rotateButton.addEventListener('click', rotate)
+
   //move around user ship
   ships.forEach(ship => ship.addEventListener('dragstart', dragStart))
   userSquares.forEach(square => square.addEventListener('dragstart', dragStart))
@@ -120,15 +131,18 @@ document.addEventListener('DOMContentLoaded', () => {
   let selectedShipNameWithIndex
   let draggedShip
   let draggedShipLength
+
   ships.forEach(ship => ship.addEventListener('mousedown', (e) => {
     selectedShipNameWithIndex = e.target.id
     console.log(selectedShipNameWithIndex)
   }))
+
   function dragStart() {
     draggedShip = this
     draggedShipLength = this.childNodes.length
     console.log(draggedShip)
   }
+
   function dragOver(e) {
     e.preventDefault()
   }
@@ -138,6 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function dragLeave() {
     console.log('drag leave')
   }
+
   function dragDrop() {
     let shipNameWithLastId = draggedShip.lastChild.id
     let shipClass = shipNameWithLastId.slice(0, -2)
@@ -166,6 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else return
     displayGrid.removeChild(draggedShip)
   }
+
   function dragEnd() {
     console.log('dragend')
   }
